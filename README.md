@@ -1,8 +1,12 @@
-# <img src="./recordOpLogo.png" height="60px" align="center" alt="Recordop logo"> RecordOp Quickstart
+# <img src="assets/recordOpLogo.png" height="60px" align="center" alt="Recordop logo"> RecordOp Quickstart
 
-Welcome to the RecordOp Quickstart application, a full-stack Typescript application using a React client and an Express server.
+Welcome to the RecordOp Quickstart, a full-stack Typescript application using a React client and Express server.
 
-Here, we demonstrate using the RecordOp API to fetch data from an Electronic Health Record using FHIR and presenting retrieved patient information in a React frontend. Our objective is to showcase the most straightforward and consistent means of fetching data and expanding details with FHIR and RecordOp.
+We demonstrate using the RecordOp API to fetch data from an Electronic Health Record using FHIR and presenting retrieved patient information in a React frontend. Our objective is to showcase the most straightforward and consistent means of fetching data and expanding details with FHIR and RecordOp.
+
+We will use two RecordOp endpoints: [POST /secureshare](http://localhost:3000/docs/get-started/api-reference#post-secureshare) and [POST /fhir/{query}](https://www.recordop.com/docs/get-started/api-reference#post-fhirquery).
+
+<img src="assets/recordOpQuickstart.png" align="center" alt="Recordop logo">
 
 ## Table of Contents
 
@@ -83,7 +87,7 @@ The client will be accessible at `http://localhost:5173`
 
 ## Sandbox Credentials
 
-Use any of the sandbox patient credentials found [here](https://www.recordop.com/docs/get-started/sandbox) to simulate patient EHR authorization.
+Use any of the sandbox patient credentials found in our [docs](https://www.recordop.com/docs/get-started/sandbox) to simulate patient EHR authorization.
 
 ## Get support
 
