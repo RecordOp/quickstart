@@ -6,7 +6,7 @@ We demonstrate using the RecordOp API to fetch data from an Electronic Health Re
 
 We will use two RecordOp endpoints: [POST /secureshare](http://localhost:3000/docs/get-started/api-reference#post-secureshare) and [POST /fhir/{query}](https://www.recordop.com/docs/get-started/api-reference#post-fhirquery).
 
-<img src="assets/recordOpQuickstart.png" align="center" alt="Recordop logo">
+![RecordOp quickstart client](/assets/recordopQuickstart.png)
 
 ## Table of Contents
 
