@@ -4,7 +4,7 @@ Welcome to the RecordOp Quickstart, a full-stack Typescript application using a 
 
 We demonstrate using the RecordOp API to fetch data from an Electronic Health Record using FHIR and presenting retrieved patient information in a React frontend. Our objective is to showcase the most straightforward and consistent means of fetching data and expanding details with FHIR and RecordOp.
 
-We will use two RecordOp endpoints: [POST /secureshare](http://localhost:3000/docs/get-started/api-reference#post-secureshare) and [POST /fhir/{query}](https://www.recordop.com/docs/get-started/api-reference#post-fhirquery).
+We will use two RecordOp endpoints: [POST /secureshare](https://www.recordop.com/docs/get-started/api-reference#post-secureshare) and [POST /fhir/{query}](https://www.recordop.com/docs/get-started/api-reference#post-fhirquery).
 
 ![RecordOp quickstart client](/assets/recordopQuickstart.png)
 
