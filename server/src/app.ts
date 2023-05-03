@@ -31,8 +31,9 @@ app.get('/secureshare', async (_, res) => {
 });
 
 // Perform a FHIR query
-app.get('/fhir', async (req, res) => {
-  const { query, sid } = req.query;
+app.post('/fhir', async (req, res) => {
+  const { query, sid } = req.body;
+  console.log({ query, sid });
   const response = await apiRequest(`/fhir/${query}`, 'POST', { session: sid });
   res.json(response.data.fhirData);
 });

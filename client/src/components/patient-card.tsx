@@ -3,9 +3,9 @@ import DataList from './data-list';
 import FhirCard, { FhirCardProps } from './fhir-card';
 
 // Component to render a patient card
-export default function PatientCard({ reference, onLoad }: Omit<FhirCardProps<Patient>, 'title'>) {
+export default function PatientCard({ query, onLoad }: Omit<FhirCardProps<Patient>, 'title'>) {
   return (
-    <FhirCard reference={reference} title="Patient" onLoad={onLoad}>
+    <FhirCard query={query} title="Patient" onLoad={onLoad}>
       {(data) => {
         // Extract the data.
         const name = data.name?.find((n) => n.use === 'official')?.text ?? 'Unknown';

@@ -1,10 +1,14 @@
 import { useEffect, useState } from 'react';
 
+export interface UseFetchOptions {
+  skip?: boolean;
+}
+
 // useFetch is a custom hook that wraps the fetch API.
 export default function useFetch<Data = any, Error = any>(
   input: RequestInfo | URL,
   init: RequestInit | undefined = undefined,
-  options: { skip: boolean } = { skip: false }
+  options: UseFetchOptions = { skip: false }
 ) {
   // Fetch state
   const [data, setData] = useState<Data>();

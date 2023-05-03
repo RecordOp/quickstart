@@ -1,9 +1,11 @@
+import { Bundle, MedicationRequest, Patient } from 'fhir/r4';
 import { useEffect, useState } from 'react';
 import PatientCard from './components/patient-card';
 import SessionCard from './components/session-card';
 import PractitionerCard from './components/practitioner-card';
-import { Patient } from 'fhir/r4';
 import OrganizationCard from './components/organization-card';
+import MedicationRequestCard from './components/medication-request-card';
+import useFhirQuery from './hooks/use-fhir-query';
 
 export default function App() {
   // Handle the redirect from Secureshare.
@@ -24,6 +26,11 @@ export default function App() {
   const pfid = sessionStorage.getItem('pfid');
   // State to hold the patient data.
   const [patientData, setPatientData] = useState<Patient>();
+  // Load medication requests
+  const medicationRequests = useFhirQuery<Bundle<MedicationRequest>>(
+    encodeURI(`MedicationRequest?patient=${pfid}`),
+    { skip: !pfid }
+  );
   // Render the app.
   return (
     <div className="py-10">
@@ -35,18 +42,29 @@ export default function App() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <SessionCard />
         {sid && pfid && (
-          <PatientCard reference={`Patient/${pfid}`} onLoad={(data) => setPatientData(data)} />
+          <>
+            <PatientCard query={`Patient/${pfid}`} onLoad={(data) => setPatientData(data)} />
+          </>
         )}
+        {medicationRequests.data?.entry
+          ?.filter((entry) => entry.resource?.resourceType === 'MedicationRequest')
+          ?.map((entry: any, i: number) => (
+            <MedicationRequestCard
+              key={i}
+              title={`Medication Request #${i + 1}`}
+              data={entry.resource}
+            />
+          ))}
         {patientData?.managingOrganization && (
           <OrganizationCard
-            reference={patientData.managingOrganization.reference!}
+            query={patientData.managingOrganization.reference!}
             title="Managing Organization"
           />
         )}
         {patientData?.generalPractitioner?.map((generalPractitioner: any, i: number) => (
           <PractitionerCard
             key={i}
-            reference={generalPractitioner.reference}
+            query={generalPractitioner.reference}
             title={`Practitioner #${i + 1}`}
           />
         ))}
