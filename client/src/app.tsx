@@ -1,4 +1,4 @@
-import { Bundle, MedicationRequest, Patient } from 'fhir/r4';
+import { Bundle, MedicationRequest, Patient, Encounter } from 'fhir/r4';
 import { useEffect, useState } from 'react';
 import PatientCard from './components/patient-card';
 import SessionCard from './components/session-card';
@@ -6,6 +6,7 @@ import PractitionerCard from './components/practitioner-card';
 import OrganizationCard from './components/organization-card';
 import MedicationRequestCard from './components/medication-request-card';
 import useFhirQuery from './hooks/use-fhir-query';
+import EncounterCard from './components/encounter-card';
 
 export default function App() {
   // Handle the redirect from Secureshare.
@@ -31,6 +32,11 @@ export default function App() {
     encodeURI(`MedicationRequest?patient=${pfid}`),
     { skip: !pfid }
   );
+
+  const encounters = useFhirQuery<Bundle<Encounter>>(
+    encodeURI(`Encounter?patient=${pfid}`),
+    { skip: !pfid }
+  );
   // Render the app.
   return (
     <div className="py-10">
@@ -41,26 +47,23 @@ export default function App() {
       </div>
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <SessionCard />
+
+        {/* Patient Demographics */}
         {sid && pfid && (
           <>
             <PatientCard query={`Patient/${pfid}`} onLoad={(data) => setPatientData(data)} />
           </>
         )}
-        {medicationRequests.data?.entry
-          ?.filter((entry) => entry.resource?.resourceType === 'MedicationRequest')
-          ?.map((entry: any, i: number) => (
-            <MedicationRequestCard
-              key={i}
-              title={`Medication Request #${i + 1}`}
-              data={entry.resource}
-            />
-          ))}
+
+        {/* Patient's Managing Organization */}
         {patientData?.managingOrganization && (
           <OrganizationCard
             query={patientData.managingOrganization.reference!}
             title="Managing Organization"
           />
         )}
+
+        {/* Patient's Practitioner's */}
         {patientData?.generalPractitioner?.map((generalPractitioner: any, i: number) => (
           <PractitionerCard
             key={i}
@@ -68,6 +71,20 @@ export default function App() {
             title={`Practitioner #${i + 1}`}
           />
         ))}
+
+        {/* Patient's Medications */}
+        {medicationRequests.data?.entry
+          ?.filter((entry) => entry.resource?.resourceType === 'MedicationRequest')
+          ?.map((entry: any, i: number) => (
+            <MedicationRequestCard key={i} title={`Medication #${i + 1}`} data={entry.resource} />
+          ))}
+
+        {/* Patient's Encounters */}
+        {encounters.data?.entry
+          ?.filter((entry) => entry.resource?.resourceType === 'Encounter')
+          ?.map((entry: any, i: number) => (
+            <EncounterCard key={i} title={`Encounter #${i + 1}`} data={entry.resource} />
+          ))}
       </div>
     </div>
   );

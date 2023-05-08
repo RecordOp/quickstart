@@ -1,4 +1,4 @@
-import { Bundle, MedicationRequest } from 'fhir/r4';
+import { MedicationRequest } from 'fhir/r4';
 import { ReactNode, useState } from 'react';
 import DataList from './data-list';
 import DropdownCard from './dropdown-card';
